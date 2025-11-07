@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pl" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anatomia Statusu (Johnstone)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Używamy domyślnej czcionki systemowej 'sans' z Tailwind, która jest czytelna i nowoczesna */
+        body {
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200 p-6 md:p-12">
+
+    <div class="max-w-6xl mx-auto">
+
+        <!-- NAGŁÓWEK -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-3">Anatomia Statusu</h1>
+            <p class="text-xl text-blue-300">Przewodnik Błyskawiczny wg Keitha Johnstone'a</p>
+        </header>
+
+        <!-- WPROWADZENIE -->
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <p class="text-lg text-gray-400">
+                Pamiętaj: Status Behawioralny (to, co <span class="font-bold text-white">robisz</span>) jest ważniejszy niż Status Społeczny (to, kim <span class="font-bold text-white">jesteś</span>).
+                Status to nieustanna, fizyczna negocjacja. Nie ma statusu neutralnego.
+            </p>
+        </div>
+
+        <!-- DWIE KOLUMNY -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+
+            <!-- ======================= -->
+            <!-- KOLUMNA: WYSOKI STATUS  -->
+            <!-- ======================= -->
+            <div>
+                <h2 class="text-3xl font-semibold mb-6 border-b-2 border-blue-500 pb-3 text-blue-400">
+                    WYSOKI STATUS
+                    <span class="block text-lg font-normal text-gray-300">Dominacja, Kontrola, Pewność</span>
+                </h2>
+
+                <!-- Karta: Głowa i Oczy -->
+                <div class="bg-gray-800 p-6 rounded-lg shadow-lg mb-6">
+                    <h3 class="text-xl font-bold text-blue-400 mb-3">Głowa i Oczy</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li><span class="font-semibold">Nieruchoma głowa:</span> Szczególnie podczas mówienia. Sygnalizuje kontrolę.</li>
+                        <li><span class="font-semibold">Utrzymany kontakt wzrokowy:</span> Nie odwraca wzroku jako pierwszy. "Hipnotyczne spojrzenie".</li>
+                        <li><span class="font-semibold">Rzadkie mruganie:</span> Spokój i skupienie.</li>
+                        <li><span class="font-semibold">Odmowa spojrzenia:</span> Ignorowanie kogoś jako ostateczny pokaz dominacji.</li>
+                    </ul>
+                </div>
+
+                <!-- Karta: Tułów i Przestrzeń -->
+                <div class="bg-gray-800 p-6 rounded-lg shadow-lg mb-6">
+                    <h3 class="text-xl font-bold text-blue-400 mb-3">Tułów i Przestrzeń</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li><span class="font-semibold">Zajmowanie przestrzeni:</span> Rozszerzona postawa, nogi szeroko, ręce na biodrach.</li>
+                        <li><span class="font-semibold">Otwarta postawa:</span> Symetria, proste plecy.</li>
+                        <li><span class="font-semibold">Spokojny, głęboki oddech:</span> Sygnalizuje brak zagrożenia.</li>
+                        <li><span class="font-semibold">Naruszenie przestrzeni:</span> Wchodzenie w strefę komfortu innych (np. protekcjonalne poklepanie).</li>
+                    </ul>
+                </div>
+
+                <!-- Karta: Ręce i Gesty -->
+                <div class="bg-gray-800 p-6 rounded-lg shadow-lg mb-6">
+                    <h3 class="text-xl font-bold text-blue-400 mb-3">Ręce i Gesty</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li><span class="font-semibold">Oszczędne i celowe:</span> Każdy gest ma znaczenie. Brak nerwowych ruchów.</li>
+                        <li><span class="font-semibold">Ręce spokojne:</span> Często z dala od twarzy (chyba że jest to gest celowy, np. gładzenie brody).</li>
+                        <li><span class="font-semibold">Dotykanie innych:</span> W sposób kontrolujący (np. położenie ręki na ramieniu, by kogoś zatrzymać).</li>
+                    </ul>
+                </div>
+
+                <!-- Karta: Głos i Mowa -->
+                <div class="bg-gray-800 p-6 rounded-lg shadow-lg mb-6">
+                    <h3 class="text-xl font-bold text-blue-400 mb-3">Głos i Komunikacja</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li><span class="font-semibold">Wolne tempo:</span> "Mój czas jest cenny, poczekacie".</li>
+                        <li><span class="font-semibold">Świadome pauzy:</span> Używa ciszy do kontrolowania rytmu rozmowy.</li>
+                        <li><span class="font-semibold">Pełne, kompletne zdania:</span> Jasne deklaracje.</li>
+                        <li><span class="font-semibold">Głos:</span> Raczej niższy, rezonujący, spokojny.</li>
+                        <li><span class="font-semibold">Intencja (Zestaw słów):</span> Udzielanie rad (nawet nieproszonych), wydawanie poleceń, protekcjonalne komplementy.</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- ======================= -->
+            <!-- KOLUMNA: NISKI STATUS   -->
+            <!-- ======================= -->
+            <div>
+                <h2 class="text-3xl font-semibold mb-6 border-b-2 border-yellow-500 pb-3 text-yellow-400">
+                    NISKI STATUS
+                    <span class="block text-lg font-normal text-gray-300">Uległość, Nerwowość, Unikanie</span>
+                </h2>
+
+                <!-- Karta: Głowa i Oczy -->
+                <div class="bg-gray-800 p-6 rounded-lg shadow-lg mb-6">
+                    <h3 class="text-xl font-bold text-yellow-400 mb-3">Głowa i Oczy</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li><span class="font-semibold">Częste ruchy głową:</span> Nerwowe potakiwanie, szukanie aprobaty.</li>
+                        <li><span class="font-semibold">Unikanie kontaktu wzrokowego:</span> Szybkie, "ukradkowe" spojrzenia.</li>
+                        <li><span class="font-semibold">Częste mruganie:</span> Nerwowość, niepewność.</li>
+                        <li><span class="font-semibold">Głowa pochylona:</span> "Chowanie" podbródka, eksponowanie karku.</li>
+                    </ul>
+                </div>
+
+                <!-- Karta: Tułów i Przestrzeń -->
+                <div class="bg-gray-800 p-6 rounded-lg shadow-lg mb-6">
+                    <h3 class="text-xl font-bold text-yellow-400 mb-3">Tułów i Przestrzeń</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li><span class="font-semibold">Minimalizowanie przestrzeni:</span> Kurczenie się, chęć bycia niewidzialnym.</li>
+                        <li><span class="font-semibold">Zamknięta postawa:</span> Garbienie się, krzyżowanie ramion, asymetria.</li>
+                        <li><span class="font-semibold">Płytki, szybki oddech:</span> Sygnalizuje stan "walcz lub uciekaj".</li>
+                        <li><span class="font-semibold">Stopu do wewnątrz:</span> Klasyczny wskaźnik uległości i niepewności.</li>
+                    </ul>
+                </div>
+
+                <!-- Karta: Ręce i Gesty -->
+                <div class="bg-gray-800 p-6 rounded-lg shadow-lg mb-6">
+                    <h3 class="text-xl font-bold text-yellow-400 mb-3">Ręce i Gesty</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li><span class="font-semibold">Nerwowe, szybkie gesty:</span> "Wiercenie się" (fidgeting).</li>
+                        <li><span class="font-semibold">Częste dotykanie twarzy:</span> Zakrywanie ust, dotykanie nosa, zabawa włosami, skubanie ubrania.</li>
+                        <li><span class="font-semibold">Gesty "samo-uspokajające":</span> Pocieranie ramion, ściskanie dłoni.</li>
+                    </ul>
+                </div>
+
+                <!-- Karta: Głos i Mowa -->
+                <div class="bg-gray-800 p-6 rounded-lg shadow-lg mb-6">
+                    <h3 class="text-xl font-bold text-yellow-400 mb-3">Głos i Komunikacja</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li><span class="font-semibold">Szybkie tempo:</span> Mówienie szybko, by nie stracić głosu, z obawy przed przerwaniem.</li>
+                        <li><span class="font-semibold">Wypełniacze wokalne:</span> Dużo "yyy", "eee", "wiesz..." na początku i w środku zdań.</li>
+                        <li><span class="font-semibold">Niepełne, przerywane zdania:</span> Podnoszenie tonu na końcu (intonacja pytająca).</li>
+                        <li><span class="font-semibold">Głos:</span> Raczej wyższy, ściśnięty, cichszy.</li>
+                        <li><span class="font-semibold">Intencja (Zestaw słów):</span> Zadawanie pytań (proszenie o pozwolenie), częste przepraszanie, szukanie aprobaty, samokrytyka.</li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- PODSUMOWANIE -->
+        <footer class="mt-16 text-center text-gray-500 italic">
+            <p>"Status to nieustanna gra, w którą gramy... Przyjaciele to ludzie, którzy zgadzają się grać ze sobą w te same gry statusowe."<br>- Keith Johnstone</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>
