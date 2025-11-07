@@ -3,86 +3,204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anatomia Statusu (Johnstone)</title>
+    <title>Anatomia Statusu / Anatomy of Status (Johnstone)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Używamy domyślnej czcionki systemowej 'sans' z Tailwind, która jest czytelna i nowoczesna */
         body {
             font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
         }
+        
+        /* --- Style Językowe --- */
+        .lang-pl { display: none; }
+        .lang-en { display: inline; }
+        
+        h1 .lang-pl, h1 .lang-en,
+        h2 .lang-pl, h2 .lang-en,
+        h3 .lang-pl, h3 .lang-en,
+        p .lang-pl, p .lang-en,
+        span.block .lang-pl, span.block .lang-en {
+            display: block;
+        }
+        
+        li .lang-pl, li .lang-en { display: inline; }
+        
+        body.show-pl .lang-pl { display: inline; }
+        body.show-pl .lang-en { display: none; }
+        body.show-en .lang-pl { display: none; }
+        body.show-en .lang-en { display: inline; }
+
+        body.show-pl h1 .lang-pl, body.show-pl h2 .lang-pl, body.show-pl h3 .lang-pl, body.show-pl p .lang-pl, body.show-pl span.block .lang-pl { display: block; }
+        body.show-pl h1 .lang-en, body.show-pl h2 .lang-en, body.show-pl h3 .lang-en, body.show-pl p .lang-en, body.show-pl span.block .lang-en { display: none; }
+
+        body.show-en h1 .lang-en, body.show-en h2 .lang-en, body.show-en h3 .lang-en, body.show-en p .lang-en, body.show-en span.block .lang-en { display: block; }
+        body.show-en h1 .lang-pl, body.show-en h2 .lang-pl, body.show-en h3 .lang-pl, body.show-en p .lang-pl, body.show-en span.block .lang-pl { display: none; }
+
+        body.show-pl li .lang-pl, body.show-en li .lang-en { display: inline; }
+        body.show-pl li .lang-en, body.show-en li .lang-pl { display: none; }
+
+        /* --- NOWE: Style Filtrów Widoku --- */
+        
+        /* Ukryj kolumnę Niskiego Statusu, gdy aktywny jest Wysoki */
+        body.show-high #low-status-column { 
+            display: none; 
+        }
+        /* Na dużych ekranach (md) spraw, by kolumna Wysokiego Statusu zajęła całą szerokość siatki */
+        @media (min-width: 768px) {
+            body.show-high #high-status-column { 
+                grid-column: 1 / -1; 
+            }
+        }
+
+        /* Ukryj kolumnę Wysokiego Statusu, gdy aktywny jest Niski */
+        body.show-low #high-status-column { 
+            display: none; 
+        }
+        /* Na dużych ekranach (md) spraw, by kolumna Niskiego Statusu zajęła całą szerokość siatki */
+        @media (min-width: 768px) {
+            body.show-low #low-status-column { 
+                grid-column: 1 / -1; 
+            }
+        }
+        
+        /* Domyślny stan (show-all) nie wymaga reguł */
+
+        /* Styl aktywnego przycisku filtra */
+        .filter-btn.active {
+            background-color: #2563eb; /* bg-blue-600 */
+            color: white;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+        }
+        .filter-btn {
+            background-color: #374151; /* bg-gray-700 */
+            color: #d1d5db; /* text-gray-300 */
+        }
+
     </style>
 </head>
-<body class="bg-gray-900 text-gray-200 p-6 md:p-12">
+<!-- Domyślne klasy: angielski i pokaż wszystko -->
+<body class="bg-gray-900 text-gray-200 p-6 md:p-12 show-en show-all">
 
-    <div class="max-w-6xl mx-auto">
+    <div class="max-w-6xl mx-auto relative">
+
+        <!-- PRZEŁĄCZNIK JĘZYKA -->
+        <div class="absolute top-0 right-0">
+            <button id="lang-toggle-btn" class="bg-gray-700 text-white px-3 py-2 rounded-lg font-semibold hover:bg-gray-600 transition-colors text-sm">
+                <span class="lang-pl">Switch to EN</span>
+                <span class="lang-en">Pokaż po Polsku</span>
+            </button>
+        </div>
 
         <!-- NAGŁÓWEK -->
-        <header class="text-center mb-12">
-            <h1 class="text-4xl md:text-5xl font-bold text-white mb-3">Anatomia Statusu</h1>
-            <p class="text-xl text-blue-300">Przewodnik Błyskawiczny wg Keitha Johnstone'a</p>
+        <header class="text-center mb-8 pt-12 md:pt-0">
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-3">
+                <span class="lang-pl">Anatomia Statusu</span>
+                <span class="lang-en">Anatomy of Status</span>
+            </h1>
+            <p class="text-xl text-blue-300">
+                <span class="lang-pl">Przewodnik Błyskawiczny wg Keitha Johnstone'a</span>
+                <span class="lang-en">Quick Guide by Keith Johnstone</span>
+            </p>
         </header>
+
+        <!-- NOWE: FILTRY WIDOKU -->
+        <div class="flex justify-center flex-wrap gap-2 mb-12" id="filter-controls">
+            <button id="btn-show-all" class="filter-btn active px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                <span class="lang-pl">Pokaż Wszystko</span>
+                <span class="lang-en">Show All</span>
+            </button>
+            <button id="btn-show-high" class="filter-btn px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                <span class="lang-pl">Tylko Wysoki Status</span>
+                <span class="lang-en">High Status Only</span>
+            </button>
+            <button id="btn-show-low" class="filter-btn px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                <span class="lang-pl">Tylko Niski Status</span>
+                <span class="lang-en">Low Status Only</span>
+            </button>
+        </div>
 
         <!-- WPROWADZENIE -->
         <div class="text-center max-w-3xl mx-auto mb-16">
             <p class="text-lg text-gray-400">
-                Pamiętaj: Status Behawioralny (to, co <span class="font-bold text-white">robisz</span>) jest ważniejszy niż Status Społeczny (to, kim <span class="font-bold text-white">jesteś</span>).
-                Status to nieustanna, fizyczna negocjacja. Nie ma statusu neutralnego.
+                <span class="lang-pl">
+                    Pamiętaj: Status Behawioralny (to, co <span class="font-bold text-white">robisz</span>) jest ważniejszy niż Status Społeczny (to, kim <span class="font-bold text-white">jesteś</span>).
+                    Status to nieustanna, fizyczna negocjacja. Nie ma statusu neutralnego.
+                </span>
+                <span class="lang-en">
+                    Remember: Behavioral Status (what you <span class="font-bold text-white">do</span>) is more important than Social Status (what you <span class="font-bold text-white">are</span>).
+                    Status is a constant, physical negotiation. There is no neutral status.
+                </span>
             </p>
         </div>
 
-        <!-- DWIE KOLUMNY -->
+        <!-- DWIE KOLUMNY (z ID) -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
 
             <!-- ======================= -->
             <!-- KOLUMNA: WYSOKI STATUS  -->
             <!-- ======================= -->
-            <div>
+            <div id="high-status-column">
                 <h2 class="text-3xl font-semibold mb-6 border-b-2 border-blue-500 pb-3 text-blue-400">
-                    WYSOKI STATUS
-                    <span class="block text-lg font-normal text-gray-300">Dominacja, Kontrola, Pewność</span>
+                    <span class="lang-pl">WYSOKI STATUS</span>
+                    <span class="lang-en">HIGH STATUS</span>
+                    <span class="block text-lg font-normal text-gray-300">
+                        <span class="lang-pl">Dominacja, Kontrola, Pewność</span>
+                        <span class="lang-en">Dominance, Control, Confidence</span>
+                    </span>
                 </h2>
 
                 <!-- Karta: Głowa i Oczy -->
                 <div class="bg-gray-800 p-6 rounded-lg shadow-lg mb-6">
-                    <h3 class="text-xl font-bold text-blue-400 mb-3">Głowa i Oczy</h3>
+                    <h3 class="text-xl font-bold text-blue-400 mb-3">
+                        <span class="lang-pl">Głowa i Oczy</span>
+                        <span class="lang-en">Head & Eyes</span>
+                    </h3>
                     <ul class="list-disc list-inside space-y-2">
-                        <li><span class="font-semibold">Nieruchoma głowa:</span> Szczególnie podczas mówienia. Sygnalizuje kontrolę.</li>
-                        <li><span class="font-semibold">Utrzymany kontakt wzrokowy:</span> Nie odwraca wzroku jako pierwszy. "Hipnotyczne spojrzenie".</li>
-                        <li><span class="font-semibold">Rzadkie mruganie:</span> Spokój i skupienie.</li>
-                        <li><span class="font-semibold">Odmowa spojrzenia:</span> Ignorowanie kogoś jako ostateczny pokaz dominacji.</li>
+                        <li><span class="font-semibold"><span class="lang-pl">Nieruchoma głowa:</span><span class="lang-en">Still head:</span></span> <span class="lang-pl">Szczególnie podczas mówienia. Sygnalizuje kontrolę.</span><span class="lang-en">Especially when speaking. Signals control.</span></li>
+                        <li><span class="font-semibold"><span class="lang-pl">Utrzymany kontakt wzrokowy:</span><span class="lang-en">Maintained eye contact:</span></span> <span class="lang-pl">Nie odwraca wzroku jako pierwszy. "Hipnotyczne spojrzenie".</span><span class="lang-en">Doesn't look away first. "Hypnotic gaze".</span></li>
+                        <li><span class="font-semibold"><span class="lang-pl">Rzadkie mruganie:</span><span class="lang-en">Infrequent blinking:</span></span> <span class="lang-pl">Spokój i skupienie.</span><span class="lang-en">Calmness and focus.</span></li>
+                        <li><span class="font-semibold"><span class="lang-pl">Odmowa spojrzenia:</span><span class="lang-en">Denial of gaze:</span></span> <span class="lang-pl">Ignorowanie kogoś jako ostateczny pokaz dominacji.</span><span class="lang-en">Ignoring someone as an ultimate show of dominance.</span></li>
                     </ul>
                 </div>
 
                 <!-- Karta: Tułów i Przestrzeń -->
                 <div class="bg-gray-800 p-6 rounded-lg shadow-lg mb-6">
-                    <h3 class="text-xl font-bold text-blue-400 mb-3">Tułów i Przestrzeń</h3>
+                    <h3 class="text-xl font-bold text-blue-400 mb-3">
+                        <span class="lang-pl">Tułów i Przestrzeń</span>
+                        <span class="lang-en">Torso & Space</span>
+                    </h3>
                     <ul class="list-disc list-inside space-y-2">
-                        <li><span class="font-semibold">Zajmowanie przestrzeni:</span> Rozszerzona postawa, nogi szeroko, ręce na biodrach.</li>
-                        <li><span class="font-semibold">Otwarta postawa:</span> Symetria, proste plecy.</li>
-                        <li><span class="font-semibold">Spokojny, głęboki oddech:</span> Sygnalizuje brak zagrożenia.</li>
-                        <li><span class="font-semibold">Naruszenie przestrzeni:</span> Wchodzenie w strefę komfortu innych (np. protekcjonalne poklepanie).</li>
+                        <li><span class="font-semibold"><span class="lang-pl">Zajmowanie przestrzeni:</span><span class="lang-en">Taking up space:</span></span> <span class="lang-pl">Rozszerzona postawa, nogi szeroko, ręce na biodrach.</span><span class="lang-en">Expanded posture, legs wide, hands on hips.</span></li>
+                        <li><span class="font-semibold"><span class="lang-pl">Otwarta postawa:</span><span class="lang-en">Open posture:</span></span> <span class="lang-pl">Symetria, proste plecy.</span><span class="lang-en">Symmetry, straight back.</span></li>
+                        <li><span class="font-semibold"><span class="lang-pl">Spokojny, głęboki oddech:</span><span class="lang-en">Calm, deep breathing:</span></span> <span class="lang-pl">Sygnalizuje brak zagrożenia.</span><span class="lang-en">Signals no threat.</span></li>
+                        <li><span class="font-semibold"><span class="lang-pl">Naruszenie przestrzeni:</span><span class="lang-en">Invading space:</span></span> <span class="lang-pl">Wchodzenie w strefę komfortu innych (np. protekcjonalne poklepanie).</span><span class="lang-en">Entering others' comfort zones (e.g., patronizing pat).</span></li>
                     </ul>
                 </div>
 
                 <!-- Karta: Ręce i Gesty -->
                 <div class="bg-gray-800 p-6 rounded-lg shadow-lg mb-6">
-                    <h3 class="text-xl font-bold text-blue-400 mb-3">Ręce i Gesty</h3>
+                    <h3 class="text-xl font-bold text-blue-400 mb-3">
+                        <span class="lang-pl">Ręce i Gesty</span>
+                        <span class="lang-en">Hands & Gestures</span>
+                    </h3>
                     <ul class="list-disc list-inside space-y-2">
-                        <li><span class="font-semibold">Oszczędne i celowe:</span> Każdy gest ma znaczenie. Brak nerwowych ruchów.</li>
-                        <li><span class="font-semibold">Ręce spokojne:</span> Często z dala od twarzy (chyba że jest to gest celowy, np. gładzenie brody).</li>
-                        <li><span class="font-semibold">Dotykanie innych:</span> W sposób kontrolujący (np. położenie ręki na ramieniu, by kogoś zatrzymać).</li>
+                        <li><span class="font-semibold"><span class="lang-pl">Oszczędne i celowe:</span><span class="lang-en">Economical and purposeful:</span></span> <span class="lang-pl">Każdy gest ma znaczenie. Brak nerwowych ruchów.</span><span class="lang-en">Every gesture has meaning. No nervous movements.</span></li>
+                        <li><span class="font-semibold"><span class="lang-pl">Ręce spokojne:</span><span class="lang-en">Calm hands:</span></span> <span class="lang-pl">Często z dala od twarzy (chyba że jest to gest celowy, np. gładzenie brody).</span><span class="lang-en">Often away from the face (unless a deliberate gesture, e.g., stroking chin).</span></li>
+                        <li><span class="font-semibold"><span class="lang-pl">Dotykanie innych:</span><span class="lang-en">Touching others:</span></span> <span class="lang-pl">W sposób kontrolujący (np. położenie ręki na ramieniu, by kogoś zatrzymać).</span><span class="lang-en">In a controlling manner (e.g., hand on shoulder to stop someone).</span></li>
                     </ul>
                 </div>
 
                 <!-- Karta: Głos i Mowa -->
                 <div class="bg-gray-800 p-6 rounded-lg shadow-lg mb-6">
-                    <h3 class="text-xl font-bold text-blue-400 mb-3">Głos i Komunikacja</h3>
+                    <h3 class="text-xl font-bold text-blue-400 mb-3">
+                        <span class="lang-pl">Głos i Komunikacja</span>
+                        <span class="lang-en">Voice & Communication</span>
+                    </h3>
                     <ul class="list-disc list-inside space-y-2">
-                        <li><span class="font-semibold">Wolne tempo:</span> "Mój czas jest cenny, poczekacie".</li>
-                        <li><span class="font-semibold">Świadome pauzy:</span> Używa ciszy do kontrolowania rytmu rozmowy.</li>
-                        <li><span class="font-semibold">Pełne, kompletne zdania:</span> Jasne deklaracje.</li>
-                        <li><span class="font-semibold">Głos:</span> Raczej niższy, rezonujący, spokojny.</li>
-                        <li><span class="font-semibold">Intencja (Zestaw słów):</span> Udzielanie rad (nawet nieproszonych), wydawanie poleceń, protekcjonalne komplementy.</li>
+                        <li><span class="font-semibold"><span class="lang-pl">Wolne tempo:</span><span class="lang-en">Slow tempo:</span></span> <span class="lang-pl">"Mój czas jest cenny, poczekacie".</span><span class="lang-en">"My time is valuable, you will wait."</span></li>
+                        <li><span class="font-semibold"><span class="lang-pl">Świadome pauzy:</span><span class="lang-en">Deliberate pauses:</span></span> <span class="lang-pl">Używa ciszy do kontrolowania rytmu rozmowy.</span><span class="lang-en">Uses silence to control the conversation's rhythm.</span></li>
+                        <li><span class="font-semibold"><span class="lang-pl">Pełne, kompletne zdania:</span><span class="lang-en">Full, complete sentences:</span></span> <span class="lang-pl">Jasne deklaracje.</span><span class="lang-en">Clear declarations.</span></li>
+                        <li><span class="font-semibold"><span class="lang-pl">Głos:</span><span class="lang-en">Voice:</span></span> <span class="lang-pl">Raczej niższy, rezonujący, spokojny.</span><span class="lang-en">Lower, resonant, calm.</span></li>
+                        <li><span class="font-semibold"><span class="lang-pl">Intencja (Zestaw słów):</span><span class="lang-en">Intention (Vocabulary):</span></span> <span class="lang-pl">Udzielanie rad (nawet nieproszonych), wydawanie poleceń, protekcjonalne komplementy.</span><span class="lang-en">Giving advice (even unsolicited), giving orders, patronizing compliments.</span></li>
                     </ul>
                 </div>
 
@@ -91,53 +209,69 @@
             <!-- ======================= -->
             <!-- KOLUMNA: NISKI STATUS   -->
             <!-- ======================= -->
-            <div>
+            <div id="low-status-column">
                 <h2 class="text-3xl font-semibold mb-6 border-b-2 border-yellow-500 pb-3 text-yellow-400">
-                    NISKI STATUS
-                    <span class="block text-lg font-normal text-gray-300">Uległość, Nerwowość, Unikanie</span>
+                    <span class="lang-pl">NISKI STATUS</span>
+                    <span class="lang-en">LOW STATUS</span>
+                    <span class="block text-lg font-normal text-gray-300">
+                        <span class="lang-pl">Uległość, Nerwowość, Unikanie</span>
+                        <span class="lang-en">Submission, Nervousness, Avoidance</span>
+                    </span>
                 </h2>
 
                 <!-- Karta: Głowa i Oczy -->
                 <div class="bg-gray-800 p-6 rounded-lg shadow-lg mb-6">
-                    <h3 class="text-xl font-bold text-yellow-400 mb-3">Głowa i Oczy</h3>
+                    <h3 class="text-xl font-bold text-yellow-400 mb-3">
+                        <span class="lang-pl">Głowa i Oczy</span>
+                        <span class="lang-en">Head & Eyes</span>
+                    </h3>
                     <ul class="list-disc list-inside space-y-2">
-                        <li><span class="font-semibold">Częste ruchy głową:</span> Nerwowe potakiwanie, szukanie aprobaty.</li>
-                        <li><span class="font-semibold">Unikanie kontaktu wzrokowego:</span> Szybkie, "ukradkowe" spojrzenia.</li>
-                        <li><span class="font-semibold">Częste mruganie:</span> Nerwowość, niepewność.</li>
-                        <li><span class="font-semibold">Głowa pochylona:</span> "Chowanie" podbródka, eksponowanie karku.</li>
+                        <li><span class="font-semibold"><span class="lang-pl">Częste ruchy głową:</span><span class="lang-en">Frequent head movements:</span></span> <span class="lang-pl">Nerwowe potakiwanie, szukanie aprobaty.</span><span class="lang-en">Nervous nodding, seeking approval.</span></li>
+                        <li><span class="font-semibold"><span class="lang-pl">Unikanie kontaktu wzrokowego:</span><span class="lang-en">Avoiding eye contact:</span></span> <span class="lang-pl">Szybkie, "ukradkowe" spojrzenia.</span><span class="lang-en">Quick, "furtive" glances.</span></li>
+                        <li><span class="font-semibold"><span class="lang-pl">Częste mruganie:</span><span class="lang-en">Frequent blinking:</span></span> <span class="lang-pl">Nerwowość, niepewność.</span><span class="lang-en">Nervousness, uncertainty.</span></li>
+                        <li><span class="font-semibold"><span class="lang-pl">Głowa pochylona:</span><span class="lang-en">Head lowered:</span></span> <span class="lang-pl">"Chowanie" podbródka, eksponowanie karku.</span><span class="lang-en">"Hiding" the chin, exposing the neck.</span></li>
                     </ul>
                 </div>
 
                 <!-- Karta: Tułów i Przestrzeń -->
                 <div class="bg-gray-800 p-6 rounded-lg shadow-lg mb-6">
-                    <h3 class="text-xl font-bold text-yellow-400 mb-3">Tułów i Przestrzeń</h3>
+                    <h3 class="text-xl font-bold text-yellow-400 mb-3">
+                        <span class="lang-pl">Tułów i Przestrzeń</span>
+                        <span class="lang-en">Torso & Space</span>
+                    </h3>
                     <ul class="list-disc list-inside space-y-2">
-                        <li><span class="font-semibold">Minimalizowanie przestrzeni:</span> Kurczenie się, chęć bycia niewidzialnym.</li>
-                        <li><span class="font-semibold">Zamknięta postawa:</span> Garbienie się, krzyżowanie ramion, asymetria.</li>
-                        <li><span class="font-semibold">Płytki, szybki oddech:</span> Sygnalizuje stan "walcz lub uciekaj".</li>
-                        <li><span class="font-semibold">Stopu do wewnątrz:</span> Klasyczny wskaźnik uległości i niepewności.</li>
+                        <li><span class="font-semibold"><span class="lang-pl">Minimalizowanie przestrzeni:</span><span class="lang-en">Minimizing space:</span></span> <span class="lang-pl">Kurczenie się, chęć bycia niewidzialnym.</span><span class="lang-en">Shrinking, wanting to be invisible.</span></li>
+                        <li><span class="font-semibold"><span class="lang-pl">Zamknięta postawa:</span><span class="lang-en">Closed posture:</span></span> <span class="lang-pl">Garbienie się, krzyżowanie ramion, asymetria.</span><span class="lang-en">Hunching, crossing arms, asymmetry.</span></li>
+                        <li><span class="font-semibold"><span class="lang-pl">Płytki, szybki oddech:</span><span class="lang-en">Shallow, fast breathing:</span></span> <span class="lang-pl">Sygnalizuje stan "walcz lub uciekaj".</span><span class="lang-en">Signals "fight or flight" state.</span></li>
+                        <li><span class="font-semibold"><span class="lang-pl">Stopy do wewnątrz:</span><span class="lang-en">Feet inward:</span></span> <span class="lang-pl">Klasyczny wskaźnik uległości i niepewności.</span><span class="lang-en">Classic indicator of submission and uncertainty.</span></li>
                     </ul>
                 </div>
 
                 <!-- Karta: Ręce i Gesty -->
                 <div class="bg-gray-800 p-6 rounded-lg shadow-lg mb-6">
-                    <h3 class="text-xl font-bold text-yellow-400 mb-3">Ręce i Gesty</h3>
+                    <h3 class="text-xl font-bold text-yellow-400 mb-3">
+                        <span class="lang-pl">Ręce i Gesty</span>
+                        <span class="lang-en">Hands & Gestures</span>
+                    </h3>
                     <ul class="list-disc list-inside space-y-2">
-                        <li><span class="font-semibold">Nerwowe, szybkie gesty:</span> "Wiercenie się" (fidgeting).</li>
-                        <li><span class="font-semibold">Częste dotykanie twarzy:</span> Zakrywanie ust, dotykanie nosa, zabawa włosami, skubanie ubrania.</li>
-                        <li><span class="font-semibold">Gesty "samo-uspokajające":</span> Pocieranie ramion, ściskanie dłoni.</li>
+                        <li><span class="font-semibold"><span class="lang-pl">Nerwowe, szybkie gesty:</span><span class="lang-en">Nervous, quick gestures:</span></span> <span class="lang-pl">"Wiercenie się" (fidgeting).</span><span class="lang-en">"Fidgeting".</span></li>
+                        <li><span class="font-semibold"><span class="lang-pl">Częste dotykanie twarzy:</span><span class="lang-en">Frequent face-touching:</span></span> <span class="lang-pl">Zakrywanie ust, dotykanie nosa, zabawa włosami, skubanie ubrania.</span><span class="lang-en">Covering mouth, touching nose, playing with hair, picking at clothes.</span></li>
+                        <li><span class="font-semibold"><span class="lang-pl">Gesty "samo-uspokajające":</span><span class="lang-en">"Self-soothing" gestures:</span></span> <span class="lang-pl">Pocieranie ramion, ściskanie dłoni.</span><span class="lang-en">Rubbing arms, wringing hands.</span></li>
                     </ul>
                 </div>
 
                 <!-- Karta: Głos i Mowa -->
                 <div class="bg-gray-800 p-6 rounded-lg shadow-lg mb-6">
-                    <h3 class="text-xl font-bold text-yellow-400 mb-3">Głos i Komunikacja</h3>
+                    <h3 class="text-xl font-bold text-yellow-400 mb-3">
+                        <span class="lang-pl">Głos i Komunikacja</span>
+                        <span class="lang-en">Voice & Communication</span>
+                    </h3>
                     <ul class="list-disc list-inside space-y-2">
-                        <li><span class="font-semibold">Szybkie tempo:</span> Mówienie szybko, by nie stracić głosu, z obawy przed przerwaniem.</li>
-                        <li><span class="font-semibold">Wypełniacze wokalne:</span> Dużo "yyy", "eee", "wiesz..." na początku i w środku zdań.</li>
-                        <li><span class="font-semibold">Niepełne, przerywane zdania:</span> Podnoszenie tonu na końcu (intonacja pytająca).</li>
-                        <li><span class="font-semibold">Głos:</span> Raczej wyższy, ściśnięty, cichszy.</li>
-                        <li><span class="font-semibold">Intencja (Zestaw słów):</span> Zadawanie pytań (proszenie o pozwolenie), częste przepraszanie, szukanie aprobaty, samokrytyka.</li>
+                        <li><span class="font-semibold"><span class="lang-pl">Szybkie tempo:</span><span class="lang-en">Fast tempo:</span></span> <span class="lang-pl">Mówienie szybko, by nie stracić głosu, z obawy przed przerwaniem.</span><span class="lang-en">Speaking quickly to avoid being interrupted.</span></li>
+                        <li><span class="font-semibold"><span class="lang-pl">Wypełniacze wokalne:</span><span class="lang-en">Vocal fillers:</span></span> <span class="lang-pl">Dużo "yyy", "eee", "wiesz..." na początku i w środku zdań.</span><span class="lang-en">Lots of "uhs", "ums", "you know..." at the start and middle of sentences.</span></li>
+                        <li><span class="font-semibold"><span class="lang-pl">Niepełne, przerywane zdania:</span><span class="lang-en">Incomplete, broken sentences:</span></span> <span class="lang-pl">Podnoszenie tonu na końcu (intonacja pytająca).</span><span class="lang-en">Raising intonation at the end (questioning tone).</span></li>
+                        <li><span class="font-semibold"><span class="lang-pl">Głos:</span><span class="lang-en">Voice:</span></span> <span class="lang-pl">Raczej wyższy, ściśnięty, cichszy.</span><span class="lang-en">Higher, tighter, quieter.</span></li>
+                        <li><span class="font-semibold"><span class="lang-pl">Intencja (Zestaw słów):</span><span class="lang-en">Intention (Vocabulary):</span></span> <span class="lang-pl">Zadawanie pytań (proszenie o pozwolenie), częste przepraszanie, szukanie aprobaty, samokrytyka.</span><span class="lang-en">Asking questions (requesting permission), frequent apologizing, seeking approval, self-criticism.</span></li>
                     </ul>
                 </div>
 
@@ -147,10 +281,78 @@
 
         <!-- PODSUMOWANIE -->
         <footer class="mt-16 text-center text-gray-500 italic">
-            <p>"Status to nieustanna gra, w którą gramy... Przyjaciele to ludzie, którzy zgadzają się grać ze sobą w te same gry statusowe."<br>- Keith Johnstone</p>
+            <p>
+                <span class="lang-pl">"Status to nieustanna gra, w którą gramy... Przyjaciele to ludzie, którzy zgadzają się grać ze sobą w te same gry statusowe."<br>- Keith Johnstone</span>
+                <span class="lang-en">"Status is a constant game we play... Friends are people who agree to play the same status games with each other."<br>- Keith Johnstone</span>
+            </p>
         </footer>
 
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const body = document.body;
+            
+            // --- Logika Przełączania Języka ---
+            const toggleBtn = document.getElementById('lang-toggle-btn');
+            let currentLang = 'en'; // Domyślnie angielski
+
+            function setLanguage(lang) {
+                if (lang === 'en') {
+                    body.classList.remove('show-pl');
+                    body.classList.add('show-en');
+                    document.documentElement.lang = 'en';
+                    toggleBtn.innerHTML = '<span class="lang-pl">Switch to EN</span><span class="lang-en">Pokaż po Polsku</span>';
+                } else {
+                    body.classList.remove('show-en');
+                    body.classList.add('show-pl');
+                    document.documentElement.lang = 'pl';
+                    toggleBtn.innerHTML = '<span class="lang-pl">Switch to EN</span><span class="lang-en">Pokaż po Polsku</span>';
+                }
+            }
+            setLanguage(currentLang); // Ustaw domyślny
+
+            toggleBtn.addEventListener('click', () => {
+                currentLang = (currentLang === 'en') ? 'pl' : 'en';
+                setLanguage(currentLang);
+            });
+
+            // --- NOWA: Logika Filtrów Widoku ---
+            const filterControls = document.getElementById('filter-controls');
+            const filterButtons = filterControls.querySelectorAll('.filter-btn');
+            
+            const btnShowAll = document.getElementById('btn-show-all');
+            const btnShowHigh = document.getElementById('btn-show-high');
+            const btnShowLow = document.getElementById('btn-show-low');
+            
+            let currentView = 'show-all'; // Domyślny widok
+
+            function setView(view) {
+                // Usuń wszystkie klasy widoku
+                body.classList.remove('show-all', 'show-high', 'show-low');
+                // Dodaj nową klasę widoku
+                body.classList.add(view);
+                
+                // Zaktualizuj stan 'active' na przyciskach
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                
+                if (view === 'show-all') {
+                    btnShowAll.classList.add('active');
+                } else if (view === 'show-high') {
+                    btnShowHigh.classList.add('active');
+                } else if (view === 'show-low') {
+                    btnShowLow.classList.add('active');
+                }
+                
+                currentView = view;
+            }
+            
+            // Ustaw nasłuchiwacze (event listeners)
+            btnShowAll.addEventListener('click', () => setView('show-all'));
+            btnShowHigh.addEventListener('click', () => setView('show-high'));
+            btnShowLow.addEventListener('click', () => setView('show-low'));
+        });
+    </script>
 
 </body>
 </html>
