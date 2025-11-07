@@ -38,7 +38,7 @@
         body.show-pl li .lang-pl, body.show-en li .lang-en { display: inline; }
         body.show-pl li .lang-en, body.show-en li .lang-pl { display: none; }
 
-        /* --- NOWE: Style Filtrów Widoku --- */
+        /* --- Style Filtrów Widoku --- */
         
         /* Ukryj kolumnę Niskiego Statusu, gdy aktywny jest Wysoki */
         body.show-high #low-status-column { 
@@ -62,8 +62,6 @@
             }
         }
         
-        /* Domyślny stan (show-all) nie wymaga reguł */
-
         /* Styl aktywnego przycisku filtra */
         .filter-btn.active {
             background-color: #2563eb; /* bg-blue-600 */
@@ -102,7 +100,7 @@
             </p>
         </header>
 
-        <!-- NOWE: FILTRY WIDOKU -->
+        <!-- FILTRY WIDOKU -->
         <div class="flex justify-center flex-wrap gap-2 mb-12" id="filter-controls">
             <button id="btn-show-all" class="filter-btn active px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
                 <span class="lang-pl">Pokaż Wszystko</span>
@@ -118,7 +116,7 @@
             </button>
         </div>
 
-        <!-- WPROWADZENIE -->
+        <!-- WPROWADZENIE (Anatomia) -->
         <div class="text-center max-w-3xl mx-auto mb-16">
             <p class="text-lg text-gray-400">
                 <span class="lang-pl">
@@ -132,7 +130,7 @@
             </p>
         </div>
 
-        <!-- DWIE KOLUMNY (z ID) -->
+        <!-- DWIE KOLUMNY (Anatomia) -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
 
             <!-- ======================= -->
@@ -279,6 +277,118 @@
 
         </div>
 
+        <!-- ============================================= -->
+        <!-- SEKCJA: CZTERY KWADRANTY (STATUS + AFEKT) -->
+        <!-- ============================================= -->
+
+        <header class="text-center mb-8 mt-24">
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-3">
+                <span class="lang-pl">Zaawansowane Kombinacje</span>
+                <span class="lang-en">Advanced Combos</span>
+            </h1>
+            <p class="text-xl text-green-300">
+                <span class="lang-pl">Przełamywanie Mitu: Status + Afekt</span>
+                <span class="lang-en">Breaking the Myth: Status + Affect</span>
+            </p>
+        </header>
+
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <p class="text-lg text-gray-400">
+                <span class="lang-pl">
+                    Najczęstszy błąd: mylenie Wysokiego Statusu z byciem "wrednym", a Niskiego z byciem "miłym". Status to <span class="font-bold text-white">władza</span>, Afekt to <span class="font-bold text-white">intencja</span>. Można je mieszać.
+                </span>
+                <span class="lang-en">
+                    The most common trap: confusing High Status with being "mean" and Low Status with being "nice". Status is <span class="font-bold text-white">power</span>, Affect is <span class="font-bold text-white">intention</span>. You can mix them.
+                </span>
+            </p>
+        </div>
+
+        <!-- Siatka 2x2 dla Czterech Kwadrantów -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+            
+            <!-- 1. WYSOKI + PRZYJEMNY -->
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg border-2 border-blue-500">
+                <h3 class="text-2xl font-bold text-blue-400 mb-3">
+                    <span class="lang-pl">WYSOKI + PRZYJEMNY</span>
+                    <span class="lang-en">HIGH + PLEASANT</span>
+                </h3>
+                <p class="text-lg italic text-gray-300 mb-4">
+                    <span class="lang-pl">Archetyp: Charyzmatyczny Lider, Mądry Król</span>
+                    <span class="lang-en">Archetype: The Charismatic Leader, The Wise King</span>
+                </p>
+                <p>
+                    <span class="lang-pl">Pewny siebie, ciepły, hojny. Nie musi nic udowadniać. Obniża swój status, by podnieść innych, bo wie, że mu to nie zagraża.</span>
+                    <span class="lang-en">Confident, warm, generous. Doesn't need to prove their position. Lowers their own status to raise others, knowing it's no threat.</span>
+                </p>
+                <p class="font-mono text-sm mt-4 bg-gray-900 p-2 rounded">
+                    <span class="lang-pl">Myśl: "Jestem w porządku, ty jesteś w porządku."</span>
+                    <span class="lang-en">Thought: "I'm okay, you're okay."</span>
+                </p>
+            </div>
+
+            <!-- 2. WYSOKI + NIEPRZYJEMNY -->
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg border-2 border-blue-500">
+                <h3 class="text-2xl font-bold text-blue-400 mb-3">
+                    <span class="lang-pl">WYSOKI + NIEPRZYJEMNY</span>
+                    <span class="lang-en">HIGH + UNPLEASANT</span>
+                </h3>
+                <p class="text-lg italic text-gray-300 mb-4">
+                    <span class="lang-pl">Archetyp: Tyran, Arogancki Szef</span>
+                    <span class="lang-en">Archetype: The Tyrant, The Arrogant Boss</span>
+                </p>
+                <p>
+                    <span class="lang-pl">Defensywny, agresywny, protekcjonalny. Używa swojego statusu do zastraszania i obniżania statusu innych, by utrzymać pozycję.</span>
+                    <span class="lang-en">Defensive, aggressive, patronizing. Uses their status to intimidate and lower others to maintain their position.</span>
+                </p>
+                <p class="font-mono text-sm mt-4 bg-gray-900 p-2 rounded">
+                    <span class="lang-pl">Myśl: "Jestem w porządku, ty nie jesteś w porządku."</span>
+                    <span class="lang-en">Thought: "I'm okay, you're not okay."</span>
+                </p>
+            </div>
+
+            <!-- 3. NISKI + PRZYJEMNY -->
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg border-2 border-yellow-500">
+                <h3 class="text-2xl font-bold text-yellow-400 mb-3">
+                    <span class="lang-pl">NISKI + PRZYJEMNY</span>
+                    <span class="lang-en">LOW + PLEASANT</span>
+                </h3>
+                <p class="text-lg italic text-gray-300 mb-4">
+                    <span class="lang-pl">Archetyp: Lojalny Fan, Pomocnik</span>
+                    <span class="lang-en">Archetype: The Loyal Fan, The Eager Helper</span>
+                </p>
+                <p>
+                    <span class="lang-pl">Pełen podziwu, chętny do pomocy, wspierający. Aktywnie i z radością obniża swój status, aby podnieść status partnera.</span>
+                    <span class="lang-en">Admiring, eager to please, supportive. Actively and happily lowers their own status to raise their partner's.</span>
+                </p>
+                <p class="font-mono text-sm mt-4 bg-gray-900 p-2 rounded">
+                    <span class="lang-pl">Myśl: "Ja nie jestem w porządku, ty jesteś w porządku."</span>
+                    <span class="lang-en">Thought: "I'm not okay, you're okay."</span>
+                </p>
+            </div>
+
+            <!-- 4. NISKI + NIEPRZYJEMNY -->
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg border-2 border-yellow-500">
+                <h3 class="text-2xl font-bold text-yellow-400 mb-3">
+                    <span class="lang-pl">NISKI + NIEPRZYJEMNY</span>
+                    <span class="lang-en">LOW + UNPLEASANT</span>
+                </h3>
+                <p class="text-lg italic text-gray-300 mb-4">
+                    <span class="lang-pl">Archetyp: Męczennik, Pasywno-Agresywny</span>
+                    <span class="lang-en">Archetype: The Martyr, The Passive-Aggressive</span>
+                </p>
+                <p>
+                    <span class="lang-pl">Narzekający, obwiniający, obrażalski. Używa swojej słabości i cierpienia jako broni, by obniżyć status innych (wywołać poczucie winy).</span>
+                    <span class="lang-en">Complaining, blaming, sulking. Uses their weakness and suffering as a weapon to lower others' status (inflict guilt).</span>
+                </p>
+                <p class="font-mono text-sm mt-4 bg-gray-900 p-2 rounded">
+                    <span class="lang-pl">Myśl: "Ja nie jestem w porządku, i to twoja wina."</span>
+                    <span class="lang-en">Thought: "I'm not okay, and it's your fault."</span>
+                </p>
+            </div>
+
+        </div>
+
+
         <!-- PODSUMOWANIE -->
         <footer class="mt-16 text-center text-gray-500 italic">
             <p>
@@ -317,7 +427,7 @@
                 setLanguage(currentLang);
             });
 
-            // --- NOWA: Logika Filtrów Widoku ---
+            // --- Logika Filtrów Widoku ---
             const filterControls = document.getElementById('filter-controls');
             const filterButtons = filterControls.querySelectorAll('.filter-btn');
             
